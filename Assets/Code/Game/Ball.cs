@@ -4,8 +4,22 @@ namespace Game
 {
 	public class Ball : MonoBehaviour
 	{
-		private void OnCollisionEnter(Collision _)
+		private ScoreManager _scoreManager;
+
+		public void Setup(ScoreManager scoreManager)
 		{
+			_scoreManager = scoreManager;
+			
+			Debug.Assert(_scoreManager != null);
+		}
+		
+		private void OnCollisionEnter(Collision collisionData)
+		{
+			if (collisionData.gameObject.CompareTag("Player"))
+			{
+				_scoreManager.IncrementScore();
+			}
+			
 			Remove();
 		}
 
