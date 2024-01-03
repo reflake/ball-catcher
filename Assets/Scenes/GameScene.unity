@@ -643,7 +643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 8003486905530031881, guid: f691d67e629bb1c41a44dd9cfeb576fa, type: 3}
   nextSpawnTime: 3
-  spawnRange: 13
+  spawnRange: 12.5
   scoreManager: {fileID: 522846067}
 --- !u!1 &949011858
 GameObject:

@@ -38,7 +38,7 @@ namespace Game
 		private void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.red;
-			Gizmos.DrawCube(transform.position, new Vector3(spawnRange, 1f, 1f));
+			Gizmos.DrawCube(transform.position, new Vector3(spawnRange * 2f, 1f, 1f));
 		}
 	}
 }
