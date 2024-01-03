@@ -13,9 +13,9 @@ namespace Game
 			Debug.Assert(_scoreManager != null);
 		}
 		
-		private void OnCollisionEnter(Collision collisionData)
+		private void OnTriggerEnter(Collider colliderData)
 		{
-			if (collisionData.gameObject.CompareTag("Player"))
+			if (colliderData.gameObject.CompareTag("Player"))
 			{
 				_scoreManager.IncrementScore();
 			}
