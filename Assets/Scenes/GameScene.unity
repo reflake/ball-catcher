@@ -852,6 +852,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 11
+  jumpStrength: 21
+  jumpDuration: 0.5
+  jumpGravityAmplification: 0.2
+  gravityScale: 5
 --- !u!143 &1484567248
 CharacterController:
   m_ObjectHideFlags: 0
@@ -876,7 +880,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1752802287
 GameObject:

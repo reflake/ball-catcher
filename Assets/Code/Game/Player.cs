@@ -6,8 +6,15 @@ namespace Game
 	public class Player : MonoBehaviour
 	{
 		[SerializeField] private float playerSpeed = 4f;
-		
+		[SerializeField] private float jumpStrength = 3f;
+		[SerializeField] private float jumpDuration = 0.6f;
+		[SerializeField] private float jumpGravityAmplification = 0.3f;
+		[SerializeField] private float gravityScale = 2.5f;
+
 		private CharacterController _characterController;
+		private Vector3 _velocity = Vector3.zero;
+		private float _jumpTime = -1;
+		private bool _holdJump = false;
 
 		private void Awake()
 		{
@@ -28,6 +35,42 @@ namespace Game
 			else if (horizontalAxisValue < -axisThreshold)
 			{
 				Walk(-playerSpeed);
+			}
+
+			var floorEps = 0.05f;
+			var grounded = transform.position.y < floorEps;
+
+			if (Input.GetButton("Jump"))
+			{
+				// Started jumping
+				if (grounded)
+				{
+					_velocity = Vector3.up * jumpStrength;
+
+					_jumpTime = Time.time + jumpDuration;
+					_holdJump = true;
+					grounded = false;
+				}
+				else if (_jumpTime < Time.time)
+				{
+					_holdJump = false;
+				}
+			} else if (_holdJump)
+			{
+				_holdJump = false;
+			}
+
+			// Apply gravity to player
+			if (!grounded)
+			{
+				var gravityStrength = _holdJump ? jumpGravityAmplification : 1f;
+				var gravityAcceleration = Physics.gravity * gravityScale * Time.deltaTime * gravityStrength;
+
+				_velocity += gravityAcceleration * 0.5f;
+
+				_characterController.Move(_velocity * Time.deltaTime);
+
+				_velocity += gravityAcceleration * 0.5f;
 			}
 		}
 
