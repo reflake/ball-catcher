@@ -1,3 +1,4 @@
+using Game.Enum;
 using UnityEngine;
 
 namespace Game
@@ -5,6 +6,8 @@ namespace Game
 	[RequireComponent(typeof(CharacterController))]
 	public class Player : MonoBehaviour
 	{
+		[SerializeField] private Input input = default;
+		[Space]
 		[SerializeField] private float playerSpeed = 4f;
 		[SerializeField] private float jumpStrength = 3f;
 		[SerializeField] private float jumpDuration = 0.6f;
@@ -25,21 +28,21 @@ namespace Game
 
 		private void Update()
 		{
-			var horizontalAxisValue = Input.GetAxis("Horizontal");
-			var axisThreshold = 0.1f;
+			var cmd = input.GetCmd();
 
-			if (horizontalAxisValue > axisThreshold)
+			switch (cmd.SideMove)
 			{
-				Walk(playerSpeed);
-			}
-			else if (horizontalAxisValue < -axisThreshold)
-			{
-				Walk(-playerSpeed);
+				case Side.Left:
+					Walk(-playerSpeed);
+					break;
+				case Side.Right:
+					Walk(playerSpeed);
+					break;
 			}
 
 			var grounded = _characterController.isGrounded;
 
-			if (Input.GetButton("Jump"))
+			if (cmd.PressingJump)
 			{
 				// Started jumping
 				if (grounded)
