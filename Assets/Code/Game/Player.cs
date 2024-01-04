@@ -37,8 +37,7 @@ namespace Game
 				Walk(-playerSpeed);
 			}
 
-			var floorEps = 0.05f;
-			var grounded = transform.position.y < floorEps;
+			var grounded = _characterController.isGrounded;
 
 			if (Input.GetButton("Jump"))
 			{
@@ -72,13 +71,22 @@ namespace Game
 
 				_velocity += gravityAcceleration * 0.5f;
 			}
+			else
+			{
+				_velocity = Vector3.zero;
+			}
 		}
 
 		private void Walk(float velocity)
 		{
 			var offset = transform.right * velocity;
 			
-			_characterController.Move(offset * Time.deltaTime);
+			if (_characterController.isGrounded)
+				
+				_characterController.Move(offset * Time.deltaTime + Vector3.down);
+			else
+			
+				_characterController.Move(offset * Time.deltaTime);
 		}
 	}
 }
