@@ -1,3 +1,4 @@
+using Game.Delegates;
 using Game.Enum;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Game
 	[RequireComponent(typeof(CharacterController))]
 	public class Player : MonoBehaviour
 	{
+		[SerializeField] private int maximalHp = 3;
 		[SerializeField] private Input input = default;
 		[Space]
 		[SerializeField] private float playerSpeed = 4f;
@@ -14,13 +16,20 @@ namespace Game
 		[SerializeField] private float jumpGravityAmplification = 0.3f;
 		[SerializeField] private float gravityScale = 2.5f;
 
+		public int MaximalHp => maximalHp;
+
+		public event NewValueDelegate<float> OnHitPointsUpdates = default;
+		public event PlayerLose OnLose = default;
+
 		private CharacterController _characterController;
 		private Vector3 _velocity = Vector3.zero;
 		private float _jumpTime = -1;
 		private bool _holdJump = false;
+		private float _currentHitPoints;
 
 		private void Awake()
 		{
+			_currentHitPoints = maximalHp;
 			_characterController = GetComponent<CharacterController>();
 			
 			Debug.Assert(_characterController != null);
@@ -90,6 +99,18 @@ namespace Game
 			else
 			
 				_characterController.Move(offset * Time.deltaTime);
+		}
+
+		public void TakeDamage(float damage)
+		{
+			_currentHitPoints -= damage;
+
+			OnHitPointsUpdates?.Invoke(_currentHitPoints);
+
+			if (Mathf.Approximately(_currentHitPoints, 0f))
+			{
+				OnLose?.Invoke();
+			}
 		}
 	}
 }

@@ -15,9 +15,17 @@ namespace Game
 		
 		private void OnTriggerEnter(Collider colliderData)
 		{
-			if (colliderData.gameObject.CompareTag("Player"))
+			var collidedGO = colliderData.gameObject;
+			
+			if (collidedGO.CompareTag("Player"))
 			{
 				_scoreManager.IncrementScore();
+			}
+			else if (collidedGO.CompareTag("Platform"))
+			{
+				var platform = collidedGO.GetComponent<Platform>();
+				
+				platform.BallHit();
 			}
 			
 			Remove();
