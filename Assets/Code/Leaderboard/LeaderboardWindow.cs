@@ -1,4 +1,5 @@
-﻿using MainMenu;
+﻿using System.Linq;
+using MainMenu;
 using MainMenu.Delegates;
 using UnityEngine;
 
@@ -15,7 +16,11 @@ namespace Leaderboard
 		
 		private void Start()
 		{
-			foreach (var entryData in system.Entries)
+			var orderedEntries = system.Entries
+				.OrderByDescending(x => x.Scores)
+				.ThenBy(x => x.Time);
+			
+			foreach (var entryData in orderedEntries)
 			{
 				table.AddRow(entryData);
 			}
