@@ -1,4 +1,5 @@
 ﻿using MainMenu;
+using MainMenu.Delegates;
 using UnityEngine;
 
 namespace Leaderboard
@@ -9,6 +10,8 @@ namespace Leaderboard
 		[SerializeField] private CanvasGroup canvasGroup = null;
 		[SerializeField] private LeaderboardSystem system = null;
 		[SerializeField] private Table table = null;
+
+		public event WindowCloseDelegate OnWindowClose = null;
 		
 		private void Start()
 		{
@@ -28,8 +31,8 @@ namespace Leaderboard
 		{
 			canvasGroup.alpha = 0f;
 			canvasGroup.blocksRaycasts = false;
-
-			MainMenu.MainMenu.Instance.BackHome();
+			
+			OnWindowClose.Invoke();
 		}
 	}
 }

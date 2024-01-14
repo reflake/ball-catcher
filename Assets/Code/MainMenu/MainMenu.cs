@@ -1,3 +1,4 @@
+using System;
 using Leaderboard;
 using UnityEditor;
 using UnityEngine;
@@ -7,15 +8,13 @@ namespace MainMenu
 {
     public class MainMenu : MonoBehaviour
     {
-        public static MainMenu Instance { get; private set; } = default;
-
         [SerializeField] private WindowManager windowManager = default;
         [SerializeField] private CanvasGroup homeCanvasGroup = default;
-        [SerializeField] private Transform windowContainer = null;
 
         private void Awake()
         {
-            Instance = this;
+            windowManager.OnWindowOpened += HideHome;
+            windowManager.OnWindowClosed += ShowHome;
         }
 
         public void StartGamePressed()
@@ -26,11 +25,8 @@ namespace MainMenu
         public void OpenLeaderboard()
         {
             windowManager.Open<LeaderboardWindow>();
-            
-            homeCanvasGroup.alpha = 0f;
-            homeCanvasGroup.blocksRaycasts = false;
         }
-        
+
         public void ExitPressed()
         {
             #if UNITY_EDITOR
@@ -40,7 +36,13 @@ namespace MainMenu
             #endif
         }
 
-        public void BackHome()
+        private void HideHome()
+        {
+            homeCanvasGroup.alpha = 0f;
+            homeCanvasGroup.blocksRaycasts = false;
+        }
+
+        public void ShowHome()
         {
             homeCanvasGroup.alpha = 1f;
             homeCanvasGroup.blocksRaycasts = true;
