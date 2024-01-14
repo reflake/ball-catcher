@@ -129,6 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43908510}
+  - component: {fileID: 43908511}
   m_Layer: 5
   m_Name: Windows
   m_TagString: Untagged
@@ -155,6 +156,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &43908511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43908509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29b0758f7ee4fa0b6eda4347dd9deea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &220711547
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,8 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63148bd4ebf3fc4386575dbd9448268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaderboardWindow:
-    prefab: {fileID: 4908167016661931014, guid: cdd06ec6e01253c4eaf1254ec416c2b5, type: 3}
+  windowManager: {fileID: 43908511}
   homeCanvasGroup: {fileID: 894348745}
   windowContainer: {fileID: 43908510}
 --- !u!1 &622968849

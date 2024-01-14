@@ -9,11 +9,9 @@ namespace MainMenu
     {
         public static MainMenu Instance { get; private set; } = default;
 
-        [SerializeField] private LazyWindow<LeaderboardWindow> leaderboardWindow = default;
+        [SerializeField] private WindowManager windowManager = default;
         [SerializeField] private CanvasGroup homeCanvasGroup = default;
         [SerializeField] private Transform windowContainer = null;
-
-        public Transform WindowContainer => windowContainer;
 
         private void Awake()
         {
@@ -27,8 +25,8 @@ namespace MainMenu
 
         public void OpenLeaderboard()
         {
-            leaderboardWindow.Value.Open();
-
+            windowManager.Open<LeaderboardWindow>();
+            
             homeCanvasGroup.alpha = 0f;
             homeCanvasGroup.blocksRaycasts = false;
         }

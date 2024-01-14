@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using MainMenu;
+using UnityEngine;
 
 namespace Leaderboard
 {
-	public class LeaderboardWindow : MonoBehaviour
+	[Window(Path = "Leaderboard/Window")]
+	public class LeaderboardWindow : MonoBehaviour, IWindow
 	{
 		[SerializeField] private CanvasGroup canvasGroup = null;
 		[SerializeField] private LeaderboardSystem system = null;
