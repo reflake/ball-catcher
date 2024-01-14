@@ -1,6 +1,7 @@
 ﻿using MainMenu;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Leaderboard
 {
@@ -10,16 +11,27 @@ namespace Leaderboard
 		[SerializeField] private TMP_Text dateLabel = null;
 		[SerializeField] private TMP_Text timeLabel = null;
 		[SerializeField] private RectTransform rectTransform = null;
-		
+		[SerializeField] private Image[] bgs = null;
+		[SerializeField] private Color evenRowColor = Color.black;
+		[SerializeField] private Color oddRowColor = Color.black;
+
+		public override void SetStyle()
+		{
+			foreach (var bg in bgs)
+			{
+				bg.color = Index % 2 == 0 ? evenRowColor : oddRowColor;
+			}
+		}
+
 		public override void SetAsHeader()
 		{
 			scoresLabel.fontStyle |= FontStyles.Bold;
 			dateLabel.fontStyle |= FontStyles.Bold;
 			timeLabel.fontStyle |= FontStyles.Bold;
 
-			scoresLabel.text = "SCORE";
-			dateLabel.text = "DATE";
-			timeLabel.text = "TIME";
+			scoresLabel.text = "Score";
+			dateLabel.text = "Date";
+			timeLabel.text = "Time";
 			
 			// Need to wait one frame before unparenting
 			Invoke("Unparent", 0.02f);
