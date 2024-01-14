@@ -1,11 +1,8 @@
-﻿using MainMenu.Delegates;
-
-namespace MainMenu
+﻿namespace MainMenu
 {
 	public interface IWindow
 	{
-		event WindowCloseDelegate OnWindowClose;
-		
 		void Open();
+		void SetFocused(bool value);
 	}
 }
