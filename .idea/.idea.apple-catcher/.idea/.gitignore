@@ -2,10 +2,10 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/modules.xml
-/.idea.ball-catcher.iml
+/.idea.apple-catcher.iml
 /contentModel.xml
 /projectSettingsUpdater.xml
+/modules.xml
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml

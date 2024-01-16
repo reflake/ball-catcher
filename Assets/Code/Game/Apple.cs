@@ -2,7 +2,7 @@
 
 namespace Game
 {
-	public class Ball : MonoBehaviour
+	public class Apple : MonoBehaviour
 	{
 		private ScoreManager _scoreManager;
 
@@ -25,7 +25,7 @@ namespace Game
 			{
 				var platform = collidedGO.GetComponent<Platform>();
 				
-				platform.BallHit();
+				platform.AppleHit();
 			}
 			
 			Remove();

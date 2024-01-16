@@ -1193,7 +1193,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BALL CATCHER
+  m_text: APPLE CATCHER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bd556d4a736a5904faaaed9d86752154, type: 2}
   m_sharedMaterial: {fileID: -4073981010852662257, guid: bd556d4a736a5904faaaed9d86752154, type: 2}

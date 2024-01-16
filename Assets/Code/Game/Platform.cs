@@ -15,7 +15,7 @@ namespace Game
 				.Select(p => p.GetComponent<Player>());
 		}
 
-		public void BallHit()
+		public void AppleHit()
 		{
 			foreach (var player in _players)
 			{

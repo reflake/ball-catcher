@@ -6,7 +6,7 @@ namespace Game
 {
 	public class Spawner : MonoBehaviour
 	{
-		[SerializeField] private Ball ballPrefab = null;
+		[SerializeField] private Apple applePrefab = null;
 		[SerializeField] private float nextSpawnTime = 0f;
 		[SerializeField] private float spawnRange = 7.2f;
 		[SerializeField] private ScoreManager scoreManager = null;
@@ -30,7 +30,7 @@ namespace Game
 			var randomSideOffset = Vector3.right * Random.Range(-spawnRange, +spawnRange);
 			var randomPosition = transform.position + randomSideOffset;
 			var randomRotation = Random.rotationUniform;
-			var instanceOfBall = Instantiate(ballPrefab, randomPosition, randomRotation);
+			var instanceOfBall = Instantiate(applePrefab, randomPosition, randomRotation);
 			
 			instanceOfBall.Setup(scoreManager);
 		}
