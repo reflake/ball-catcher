@@ -7,6 +7,7 @@ namespace Game
 	public class Apple : MonoBehaviour
 	{
 		[SerializeField] private Vector2 _speedRange = Vector2.zero;
+		[SerializeField] private float _fallingSpeed = 3f;
 		
 		private ScoreManager _scoreManager;
 		private float _rotationSpeed;
@@ -23,6 +24,7 @@ namespace Game
 		public void Update()
 		{
 			transform.rotation *= Quaternion.AngleAxis(_rotationSpeed * Time.deltaTime, _rotationAxis);
+			transform.position += Vector3.down * _fallingSpeed * Time.smoothDeltaTime;
 		}
 
 		public void Setup(ScoreManager scoreManager)
