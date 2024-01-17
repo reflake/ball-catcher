@@ -1,10 +1,29 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
 	public class Apple : MonoBehaviour
 	{
+		[SerializeField] private Vector2 _speedRange = Vector2.zero;
+		
 		private ScoreManager _scoreManager;
+		private float _rotationSpeed;
+		private Vector3 _rotationAxis;
+
+		private void Awake()
+		{
+			var speed = 
+
+			_rotationAxis = Random.onUnitSphere;
+			_rotationSpeed = Random.Range(_speedRange.x, _speedRange.y);
+		}
+
+		public void Update()
+		{
+			transform.rotation *= Quaternion.AngleAxis(_rotationSpeed * Time.deltaTime, _rotationAxis);
+		}
 
 		public void Setup(ScoreManager scoreManager)
 		{
