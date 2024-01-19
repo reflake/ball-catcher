@@ -506,7 +506,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 5981096480562266021}
   system: {fileID: 8252020262566644488}
   table: {fileID: 6681165343589615404}
-  backgroundColor: {r: 0.7169812, g: 0.64595944, b: 0.64595944, a: 1}
+  backgroundColor: {r: 0.7169812, g: 0.64595944, b: 0.64595944, a: 0.6117647}
 --- !u!114 &8252020262566644488
 MonoBehaviour:
   m_ObjectHideFlags: 0

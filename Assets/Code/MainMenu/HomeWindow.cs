@@ -2,12 +2,9 @@
 
 namespace MainMenu
 {
-	public class HomeWindow : MonoBehaviour, IWindow, IControlBackColor
+	public class HomeWindow : MonoBehaviour, IWindow
 	{
 		[SerializeField] private CanvasGroup canvasGroup = default;
-		[SerializeField] private Color backgroundColor;
-		
-		public Color BackgroundColor => backgroundColor;
 
 		public void Open()
 		{

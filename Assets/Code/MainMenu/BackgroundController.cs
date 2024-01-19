@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace MainMenu
 {
 	public class BackgroundController : MonoBehaviour
 	{
-		[SerializeField] private Camera mainCamera = null;
+		[SerializeField] private Image backgroundImage = null;
 		[SerializeField] private WindowManager windowManager = null;
 
 		private void Awake()
@@ -16,7 +17,11 @@ namespace MainMenu
 		{
 			if (window is IControlBackColor control)
 			{
-				mainCamera.backgroundColor = control.BackgroundColor;
+				backgroundImage.color = control.BackgroundColor;
+			}
+			else
+			{
+				backgroundImage.color = Color.clear;
 			}
 		}
 	}
