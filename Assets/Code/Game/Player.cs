@@ -15,6 +15,9 @@ namespace Game
 		[SerializeField] private float jumpDuration = 0.6f;
 		[SerializeField] private float jumpGravityAmplification = 0.3f;
 		[SerializeField] private float gravityScale = 2.5f;
+		[Space] 
+		[SerializeField] private float turnSpeed = 500f;
+		[SerializeField] private Side lookSide = Side.Right;
 
 		public int MaximalHp => maximalHp;
 
@@ -42,9 +45,11 @@ namespace Game
 			switch (cmd.SideMove)
 			{
 				case Side.Left:
+					lookSide = Side.Left;
 					Walk(-playerSpeed);
 					break;
 				case Side.Right:
+					lookSide = Side.Right;
 					Walk(playerSpeed);
 					break;
 			}
@@ -87,11 +92,21 @@ namespace Game
 			{
 				_velocity = Vector3.zero;
 			}
+
+			switch (lookSide)
+			{
+				case Side.Left:
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, -90, 0), turnSpeed * Time.smoothDeltaTime);
+					break;
+				case Side.Right:
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 91, 0), turnSpeed * Time.smoothDeltaTime);
+					break;
+			}
 		}
 
 		private void Walk(float velocity)
 		{
-			var offset = transform.right * velocity;
+			var offset = Vector3.right * velocity;
 			
 			if (_characterController.isGrounded)
 				
