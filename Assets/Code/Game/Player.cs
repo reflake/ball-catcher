@@ -7,6 +7,8 @@ namespace Game
 	[RequireComponent(typeof(CharacterController))]
 	public class Player : MonoBehaviour
 	{
+		[SerializeField] private Animator animator = default;
+	    [Space]
 		[SerializeField] private int maximalHp = 3;
 		[SerializeField] private Input input = default;
 		[Space]
@@ -29,6 +31,12 @@ namespace Game
 		private float _jumpTime = -1;
 		private bool _holdJump = false;
 		private float _currentHitPoints;
+		
+		private static readonly int AnimatorMidairParameter = Animator.StringToHash("midair");
+		private static readonly int AnimatorWalkingParameter = Animator.StringToHash("walking");
+
+		private bool _walkingAnimState = false;
+		private bool _midairAnimState = false;
 
 		private void Awake()
 		{
@@ -45,16 +53,23 @@ namespace Game
 			switch (cmd.SideMove)
 			{
 				case Side.Left:
+					SetWalkingAnimation(true);
 					lookSide = Side.Left;
 					Walk(-playerSpeed);
 					break;
 				case Side.Right:
+					SetWalkingAnimation(true);
 					lookSide = Side.Right;
 					Walk(playerSpeed);
+					break;
+				default:
+					SetWalkingAnimation(false);
 					break;
 			}
 
 			var grounded = _characterController.isGrounded;
+			
+			SetMidairAnimation(!grounded);
 
 			if (cmd.PressingJump)
 			{
@@ -102,6 +117,26 @@ namespace Game
 					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 91, 0), turnSpeed * Time.smoothDeltaTime);
 					break;
 			}
+		}
+
+		private void SetMidairAnimation(bool value)
+		{
+			if (_midairAnimState == value)
+				return;
+			
+			_midairAnimState = value;
+			
+			animator.SetBool(AnimatorMidairParameter, value);
+		}
+
+		private void SetWalkingAnimation(bool val)
+		{
+			if (_walkingAnimState == val)
+				return;
+			
+			_walkingAnimState = val;
+			
+			animator.SetBool(AnimatorWalkingParameter, val);
 		}
 
 		private void Walk(float velocity)
