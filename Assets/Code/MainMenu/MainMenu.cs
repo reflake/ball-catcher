@@ -1,4 +1,6 @@
 using System;
+using Game;
+using Game.Enum;
 using Leaderboard;
 using UnityEditor;
 using UnityEngine;
@@ -10,9 +12,37 @@ namespace MainMenu
     {
         [SerializeField] private WindowManager windowManager = default;
 
-        public void StartGamePressed()
+        public void StartSurvivalGamePressed()
         {
-            SceneManager.LoadScene("GameScene");
+            StartGame(GameMode.Survival);
+        }
+        public void StartRushGamePressed()
+        {
+            StartGame(GameMode.Rush);
+        }
+
+        private void StartGame(GameMode gameMode)
+        {
+            UseMenuContext().GameMode = gameMode;
+            
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        }
+
+        private MenuContext UseMenuContext()
+        {
+            var context = FindFirstObjectByType<MenuContext>();
+
+            if (context != null)
+            {
+                return context;
+            }
+            
+            var go = new GameObject("MenuContext");
+            context = go.AddComponent<MenuContext>();
+            
+            DontDestroyOnLoad(go);
+
+            return context;
         }
 
         public void OpenLeaderboard()
