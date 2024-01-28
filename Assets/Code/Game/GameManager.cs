@@ -13,6 +13,7 @@ namespace Game
 		[SerializeField] private GameMode _defaultGameMode = GameMode.Survival;
 		[SerializeField] private LeaderboardSystem _leaderboardSystem = default;
 		[SerializeField] private ScoreManager _scoreManager = default;
+		[SerializeField] private Timer timer = default;
 		[SerializeField] private Player player = default;
 		[SerializeField] private Spawner[] spawnerPrefabs = default;
 
@@ -38,8 +39,6 @@ namespace Game
 			if (!_gameMode.HasValue)
 				SetGameMode(_defaultGameMode);
 			
-			Debug.Log($"Game mode is {GameMode}");
-
 			// Each game mode has its own spawner with their own parameters
 			var gameModeSpawnerPrefab = spawnerPrefabs
 				.Single(spawnerPrefab => spawnerPrefab.TargetGameMode == GameMode);
@@ -49,7 +48,17 @@ namespace Game
 
 		private void Start()
 		{
-			player.OnLose += GameOver;
+			// Player can't lose in rush mode!
+			if (GameMode != GameMode.Rush)
+				
+				player.OnLose += GameOver;
+
+			// Launch timer for Rush mode
+			if (GameMode == GameMode.Rush)
+			{
+				timer.LaunchCountdown(2 * 60);
+				timer.OnCountdownComplete += GameOver;
+			}
 		}
 
 		private void GameOver()

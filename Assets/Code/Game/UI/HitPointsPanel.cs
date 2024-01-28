@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Enum;
 using UnityEngine;
 
 namespace Game.UI
@@ -14,6 +15,16 @@ namespace Game.UI
 
 		private void Start()
 		{
+			// Player doesn't have hit points in Rush mode
+			//   so dont display them
+			var gameManager = FindFirstObjectByType<GameManager>();
+
+			if (gameManager.GameMode == GameMode.Rush)
+			{
+				Destroy(gameObject);
+				return;
+			}
+			
 			SetHitPoints(player.MaximalHp);
 
 			player.OnHitPointsUpdates += PlayerHitPointsUpdates;
