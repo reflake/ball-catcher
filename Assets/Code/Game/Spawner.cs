@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Enum;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,22 +7,35 @@ namespace Game
 {
 	public class Spawner : MonoBehaviour
 	{
+		[SerializeField] private GameMode targetGameMode = default;
 		[SerializeField] private Apple applePrefab = null;
 		[SerializeField] private float nextSpawnTime = 0f;
 		[SerializeField] private float spawnRange = 7.2f;
-		[SerializeField] private ScoreManager scoreManager = null;
+		[SerializeField] private float spawnInterval = 1.5f;
+		[SerializeField] private float spawnMinimalInterval = 0.1f;
+		[SerializeField] private float spawnIntervalIncreaseRate = 0.2f;
+
+		public GameMode TargetGameMode => targetGameMode;
+
+		private ScoreManager _scoreManager = null;
+
+		private void Awake()
+		{
+			_scoreManager = FindFirstObjectByType<ScoreManager>();
+		}
 
 		private void Update()
 		{
 			var eps = 0.0001f;
 			
-			if (nextSpawnTime < Time.time - eps)
+			if (nextSpawnTime < Time.timeSinceLevelLoad - eps)
 			{
-				var spawnInterval = 1.5f;
-				
-				nextSpawnTime += spawnInterval;
+				nextSpawnTime = Time.timeSinceLevelLoad + spawnInterval;
 
 				SpawnBall();
+
+				spawnInterval -= spawnIntervalIncreaseRate / 2000;
+				spawnInterval = Mathf.Clamp(spawnInterval, spawnMinimalInterval, Single.PositiveInfinity);
 			}
 		}
 
@@ -32,7 +46,7 @@ namespace Game
 			var randomRotation = Random.rotationUniform;
 			var instanceOfBall = Instantiate(applePrefab, randomPosition, randomRotation);
 			
-			instanceOfBall.Setup(scoreManager);
+			instanceOfBall.Setup(_scoreManager);
 		}
 
 		private void OnDrawGizmosSelected()

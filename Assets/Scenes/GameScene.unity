@@ -894,54 +894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreLabel: {fileID: 843132022}
---- !u!1 &889308430
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 889308431}
-  - component: {fileID: 889308432}
-  m_Layer: 0
-  m_Name: Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &889308431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889308430}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 33.67, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &889308432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889308430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ef4247470947c59a9c72b40e5378d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  applePrefab: {fileID: 8003486905530031881, guid: f691d67e629bb1c41a44dd9cfeb576fa, type: 3}
-  nextSpawnTime: 3
-  spawnRange: 12.5
-  scoreManager: {fileID: 522846067}
 --- !u!1 &949011858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,9 +1538,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9e651b260f496b9aaefa1b6b1c4ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultGameMode: 1
   _leaderboardSystem: {fileID: 1672148708}
   _scoreManager: {fileID: 522846067}
   player: {fileID: 1484567247}
+  spawnerPrefabs:
+  - {fileID: 5092893474764857171, guid: 7ac7bf96bbc1ccf44a193cdc8f5c112e, type: 3}
+  - {fileID: 2618238539732422251, guid: 61fdc1e802c853f4fbb8987fa7aa1851, type: 3}
 --- !u!4 &2126949321
 Transform:
   m_ObjectHideFlags: 0
@@ -1723,7 +1679,6 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1484567245}
   - {fileID: 831196921}
-  - {fileID: 889308431}
   - {fileID: 1752802291}
   - {fileID: 949011861}
   - {fileID: 2008945336}

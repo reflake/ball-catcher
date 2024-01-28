@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Game.Enum;
 using Leaderboard;
 using MainMenu;
@@ -13,6 +14,7 @@ namespace Game
 		[SerializeField] private LeaderboardSystem _leaderboardSystem = default;
 		[SerializeField] private ScoreManager _scoreManager = default;
 		[SerializeField] private Player player = default;
+		[SerializeField] private Spawner[] spawnerPrefabs = default;
 
 		public GameMode GameMode
 		{
@@ -37,6 +39,12 @@ namespace Game
 				SetGameMode(_defaultGameMode);
 			
 			Debug.Log($"Game mode is {GameMode}");
+
+			// Each game mode has its own spawner with their own parameters
+			var gameModeSpawnerPrefab = spawnerPrefabs
+				.Single(spawnerPrefab => spawnerPrefab.TargetGameMode == GameMode);
+
+			Instantiate(gameModeSpawnerPrefab);
 		}
 
 		private void Start()
