@@ -37,7 +37,7 @@ namespace MainMenu
 			}
 		}
 
-		public void Open<TWindow>() where TWindow : Component, IWindow
+		public TWindow Open<TWindow>() where TWindow : Component, IWindow
 		{
 			TWindow instanceOfWindow;
 			
@@ -59,6 +59,8 @@ namespace MainMenu
 			}
 			
 			Open(instanceOfWindow);
+
+			return instanceOfWindow;
 		}
 
 		private void Open<TWindow>(TWindow instanceOfWindow) where TWindow : Component, IWindow
