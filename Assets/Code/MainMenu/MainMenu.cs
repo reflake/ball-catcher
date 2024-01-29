@@ -23,30 +23,6 @@ namespace MainMenu
             StartGame(GameMode.Rush);
         }
 
-        private void StartGame(GameMode gameMode)
-        {
-            UseMenuContext().GameMode = gameMode;
-            
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-        }
-
-        private MenuContext UseMenuContext()
-        {
-            var context = FindFirstObjectByType<MenuContext>();
-
-            if (context != null)
-            {
-                return context;
-            }
-            
-            var go = new GameObject("MenuContext");
-            context = go.AddComponent<MenuContext>();
-            
-            DontDestroyOnLoad(go);
-
-            return context;
-        }
-
         public void OpenLeaderboard()
         {
             windowManager.Open<LeaderboardWindow>();
@@ -75,6 +51,30 @@ namespace MainMenu
 #endif
                 }
             });
+        }
+
+        private void StartGame(GameMode gameMode)
+        {
+            UseMenuContext().GameMode = gameMode;
+            
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        }
+
+        private MenuContext UseMenuContext()
+        {
+            var context = FindFirstObjectByType<MenuContext>();
+
+            if (context != null)
+            {
+                return context;
+            }
+            
+            var go = new GameObject("MenuContext");
+            context = go.AddComponent<MenuContext>();
+            
+            DontDestroyOnLoad(go);
+
+            return context;
         }
     }
 }
