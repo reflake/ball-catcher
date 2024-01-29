@@ -1,4 +1,5 @@
 ﻿using MainMenu;
+using MainMenu.Table;
 
 namespace Leaderboard
 {

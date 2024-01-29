@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MainMenu
+namespace MainMenu.Table
 {
 	public abstract class BaseRow<TData> : MonoBehaviour
 	{

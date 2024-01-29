@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MainMenu
+namespace MainMenu.Table
 {
 	public abstract class BaseTable<TRow, TData> : MonoBehaviour 
 		where TRow : BaseRow<TData>

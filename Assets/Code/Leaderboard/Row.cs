@@ -1,4 +1,5 @@
 ﻿using MainMenu;
+using MainMenu.Table;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
