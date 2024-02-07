@@ -1,6 +1,6 @@
 using System;
 
-namespace Leaderboard
+namespace Leaderboard.Local
 {
 	[Serializable]
 	public record LocalEntry(DateTime Date, int Scores, int Time)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Leaderboard
+namespace Leaderboard.Local
 {
 	[Serializable]
 	public record LocalDataHeader(int Version, int NumberOfEntries)

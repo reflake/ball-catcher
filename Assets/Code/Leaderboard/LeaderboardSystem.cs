@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Leaderboard.Local;
 using UnityEngine;
 
 namespace Leaderboard

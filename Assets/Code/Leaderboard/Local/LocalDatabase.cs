@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-namespace Leaderboard
+namespace Leaderboard.Local
 {
 	public class LocalDatabase
 	{
