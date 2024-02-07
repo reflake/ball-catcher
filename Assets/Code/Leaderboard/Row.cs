@@ -1,4 +1,5 @@
-﻿using MainMenu;
+﻿using Leaderboard.Local;
+using MainMenu;
 using MainMenu.Table;
 using TMPro;
 using UnityEngine;
