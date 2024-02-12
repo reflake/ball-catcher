@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Game.Enum;
 using Leaderboard;
 using MainMenu;
@@ -71,7 +72,8 @@ namespace Game
 			int timeElapsed = (int)Time.timeSinceLevelLoad;
 			int currentScores = _scoreManager.CurrentScore;
 
-			_leaderboardSystem.AddEntry(currentScores, timeElapsed);
+			_leaderboardSystem.AddLocalEntry(currentScores, timeElapsed);
+			_leaderboardSystem.PostGlobalEntry("Local Player", currentScores, timeElapsed).Forget();
 			
 			SceneManager.LoadScene("MainMenuScene");
 		}
