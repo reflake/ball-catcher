@@ -2,6 +2,7 @@
 
 namespace Leaderboard.Entities
 {
+	[Serializable]
 	public class Record
 	{
 		public int Id { get; set; }

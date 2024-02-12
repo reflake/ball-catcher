@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Cysharp.Threading.Tasks;
 using MainMenu;
 using MainMenu.Delegates;
 using UnityEngine;
@@ -10,7 +11,8 @@ namespace Leaderboard
 	{
 		[SerializeField] private CanvasGroup canvasGroup = null;
 		[SerializeField] private LeaderboardSystem system = null;
-		[SerializeField] private Table table = null;
+		[SerializeField] private Table localTable = null;
+		[SerializeField] private Table globalTable = null;
 		[SerializeField] private Color backgroundColor = default;
 
 		public event WindowCloseDelegate OnWindowClose = null;
@@ -19,13 +21,31 @@ namespace Leaderboard
 		
 		private void Start()
 		{
-			var orderedEntries = system.Entries
+			FillLocalRows();
+			FillGlobalRows().Forget();
+		}
+
+		private void FillLocalRows()
+		{
+			var orderedEntries = system.Local
 				.OrderByDescending(x => x.Scores)
 				.ThenBy(x => x.Time);
-			
+
 			foreach (var entryData in orderedEntries)
 			{
-				table.AddRow(entryData);
+				localTable.AddRow(entryData);
+			}
+		}
+
+		private async UniTaskVoid FillGlobalRows()
+		{
+			var orderedEntries = (await system.Global)
+				.OrderByDescending(x => x.Scores)
+				.ThenBy(x => x.Time);
+
+			foreach (var entryData in orderedEntries)
+			{
+				globalTable.AddRow(entryData);
 			}
 		}
 

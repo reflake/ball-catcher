@@ -1,5 +1,4 @@
-﻿using Leaderboard.Local;
-using MainMenu;
+﻿using Leaderboard.Entities;
 using MainMenu.Table;
 using TMPro;
 using UnityEngine;
@@ -7,8 +6,9 @@ using UnityEngine.UI;
 
 namespace Leaderboard
 {
-	public class Row : BaseRow<LocalEntry>
+	public class Row : BaseRow<Record>
 	{
+		[SerializeField] private TMP_Text nickname = null;
 		[SerializeField] private TMP_Text scoresLabel = null;
 		[SerializeField] private TMP_Text dateLabel = null;
 		[SerializeField] private TMP_Text timeLabel = null;
@@ -47,10 +47,11 @@ namespace Leaderboard
 			rectTransform.anchoredPosition += new Vector2(0, rowHeight);
 		}
 		
-		public override void SetData(LocalEntry data)
+		public override void SetData(Record data)
 		{
+			nickname.text = data.Nickname;
 			scoresLabel.text = data.Scores.ToString();
-			dateLabel.text = data.Date.ToString("f");
+			dateLabel.text = data.DateTime.ToString("f");
 
 			int minutes = data.Time / 60;
 			int seconds = data.Time % 60;

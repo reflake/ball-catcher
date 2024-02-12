@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Leaderboard.Entities;
 using UnityEngine;
 
 namespace Leaderboard.Local
@@ -10,9 +11,9 @@ namespace Leaderboard.Local
 	public class LocalDatabase
 	{
 		public string LocalLeaderboardDataPath => Path.Combine(Application.persistentDataPath, "records.bin");
-		public IReadOnlyCollection<LocalEntry> Entries => _entries;
+		public IReadOnlyCollection<Record> Entries => _entries;
 
-		private List<LocalEntry> _entries = new();
+		private List<Record> _entries = new();
 		private int _version = 1_00;
 		private bool _dirty = false;
 
@@ -37,12 +38,12 @@ namespace Leaderboard.Local
 			
 				for (int i = 0; i < header.NumberOfEntries; i++)
 				{
-					_entries.Add((LocalEntry)formatter.Deserialize(fileDataStream));
+					_entries.Add((Record)formatter.Deserialize(fileDataStream));
 				}
 			}
 		}
 
-		public void AddEntry(int scores, int time)
+		public void AddEntry(string nickname, int scores, int time)
 		{
 			// Do not add entry if scores is lower than the highest score
 			if (_entries.Count > 0 && _entries.Select(r => r.Scores).Max() >= scores)
@@ -53,7 +54,13 @@ namespace Leaderboard.Local
 			var dateTime = DateTime.Now;
 
 			_dirty = true;
-			_entries.Add(new LocalEntry(dateTime, scores, time));
+			_entries.Add(new Record
+			{
+				Nickname = nickname,
+				DateTime = dateTime,
+				Scores = scores,
+				Time = time
+			});
 		}
 
 		public void Flush()

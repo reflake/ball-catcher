@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using Cysharp.Threading.Tasks;
 using Leaderboard.Entities;
 using Leaderboard.Local;
+using Leaderboard.Remote;
 using Leaderboard.Responses;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -14,49 +13,26 @@ namespace Leaderboard
 {
 	public class LeaderboardSystem : MonoBehaviour
 	{
-		public const string ApiUrl = "http://localhost:5044";
-		public IReadOnlyCollection<LocalEntry> Entries => _local.Entries;
-		
+		public IReadOnlyCollection<Record> Local => _local.Entries;
+		public UniTask<IReadOnlyCollection<Record>> Global => _remote.GetEntries();
+
 		private LocalDatabase _local = null;
+		private RemoteDatabase _remote = null;
 
 		private void Awake()
 		{
 			_local = new LocalDatabase();
+			_remote = new RemoteDatabase();
 		}
 
-		public void AddLocalEntry(int scores, int time)
+		public void AddLocalEntry(string nickname, int scores, int time)
 		{
-			_local.AddEntry(scores, time);
+			_local.AddEntry(nickname, scores, time);
 		}
 
-		public async UniTask<bool> PostGlobalEntry(string nickname, int scores, int time)
+		public UniTask<bool> PostGlobalEntry(string nickname, int scores, int time)
 		{
-			var entry = new Record
-			{
-				DateTime = DateTime.Now,
-				Nickname = nickname,
-				Scores = scores,
-				Time = time
-			};
-			const string contentType = "application/json; charset=utf-8";
-			var postData = JsonConvert.SerializeObject(entry, new JsonSerializerSettings
-			{
-				DateTimeZoneHandling = DateTimeZoneHandling.Utc
-			});
-
-			var response = await UnityWebRequest
-				.Post($"{ApiUrl}/Leaderboard", postData, contentType)
-				.SendWebRequest();
-
-			if (response.responseCode != 200)
-			{
-				throw new Exception($"Code: {response.responseCode}, Error: {response.error}");
-			}
-
-			var stringData = response.downloadHandler.text;
-			var data = JsonUtility.FromJson<PostResponse>(stringData);
-
-			return !data.Faulted;
+			return _remote.PostEntry(nickname, scores, time);
 		}
 
 		private void OnDestroy()

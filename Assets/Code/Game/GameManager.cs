@@ -72,7 +72,7 @@ namespace Game
 			int timeElapsed = (int)Time.timeSinceLevelLoad;
 			int currentScores = _scoreManager.CurrentScore;
 
-			_leaderboardSystem.AddLocalEntry(currentScores, timeElapsed);
+			_leaderboardSystem.AddLocalEntry("Local Player", currentScores, timeElapsed);
 			_leaderboardSystem.PostGlobalEntry("Local Player", currentScores, timeElapsed).Forget();
 			
 			SceneManager.LoadScene("MainMenuScene");
