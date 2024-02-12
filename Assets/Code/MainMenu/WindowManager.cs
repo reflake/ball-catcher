@@ -53,7 +53,7 @@ namespace MainMenu
 				var prefab = Addressables.LoadAssetAsync<GameObject>(attribute.Path).WaitForCompletion();
 			
 				instanceOfWindow = Instantiate(prefab, transform).GetComponent<TWindow>();
-				instanceOfWindow.name = nameof(TWindow);
+				instanceOfWindow.name = instanceOfWindow.GetType().Name;
 				
 				RegisterWindow(instanceOfWindow);
 			}
