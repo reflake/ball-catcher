@@ -14,8 +14,6 @@ namespace Game.Collectible
 
 		private void Awake()
 		{
-			var speed = 
-
 			_rotationAxis = Random.onUnitSphere;
 			_rotationSpeed = Random.Range(_speedRange.x, _speedRange.y);
 		}
