@@ -118,5 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3562b9124b574e94b18b0999f73965fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fallingSpeed: 0.02
+  _fallingSpeed: 15
   _healingAmount: 0.5
