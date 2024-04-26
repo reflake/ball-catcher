@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetGameMode: 1
   applePrefab: {fileID: 8003486905530031881, guid: f691d67e629bb1c41a44dd9cfeb576fa, type: 3}
+  heartPrefab: {fileID: 3202029957213537795, guid: 9792fb1b009b9164eac96b07838a3bff, type: 3}
   nextSpawnTime: 3
   spawnRange: 12.5
   spawnInterval: 1.5
   spawnMinimalInterval: 0.3
   spawnIntervalIncreaseRate: 7
+  heartSpawnChance: 0.1
