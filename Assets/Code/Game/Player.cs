@@ -162,5 +162,14 @@ namespace Game
 				OnLose?.Invoke();
 			}
 		}
+
+		public void Heal(float healingAmount)
+		{
+			Debug.Assert(healingAmount > 0f);
+			
+			_currentHitPoints += healingAmount;
+			
+			OnHitPointsUpdates?.Invoke(_currentHitPoints);
+		}
 	}
 }
